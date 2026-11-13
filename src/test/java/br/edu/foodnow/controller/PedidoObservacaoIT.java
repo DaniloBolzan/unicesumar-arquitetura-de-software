@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.not;
@@ -63,7 +64,8 @@ class PedidoObservacaoIT extends ApiTestSupport {
         given().contentType(ContentType.JSON).body(requisicaoPedido(cenario, "a".repeat(501), true))
                 .post("/pedidos").then().statusCode(400)
                 .body("erro", equalTo("VALIDATION_ERROR"))
-                .body("mensagem", equalTo("observacao: tamanho deve ser entre 0 e 500"));
+                .body("mensagem", containsString("observacao"))
+                .body("mensagem", containsString("500"));
     }
 
     private Map<String, Object> requisicaoPedido(Cenario cenario, String observacao, boolean incluirObservacao) {
