@@ -65,3 +65,5 @@ Os testes adicionados cobrem observação informada, recuperação por `GET`, ma
 - `npx --yes @redocly/cli lint docs/openapi-pedidos-anterior.yaml docs/openapi-pedidos.yaml`: descrições **válidas**, sem erros (quatro avisos não bloqueantes sobre licença acadêmica sem URL e servidor local).
 
 As referências JSON de `GeografiaContratoIT` permanecem inalteradas: pedidos antigos sem observação continuam produzindo exatamente o contrato anterior, sem a propriedade opcional.
+
+O teste de 501 caracteres verifica o campo inválido e o limite informado sem depender do idioma configurado para as mensagens do Bean Validation, mantendo o mesmo resultado em ambiente local e no CI.
