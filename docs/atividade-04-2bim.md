@@ -1,5 +1,9 @@
 # Atividade 04 – Comunicação Assíncrona e Eventos no FoodNow
 
+## Identificação
+
+- Integrantes: Danilo Bolzan de Moraes e Edi Carlos Francisco Junior
+
 ## Operação escolhida
 
 A confirmação de um pedido é a operação principal. Ela é considerada concluída quando o status `CONFIRMADO` é salvo e a transação do serviço faz commit. O envio de e-mail simulado ao cliente é a única ação secundária movida para processamento assíncrono.
@@ -19,6 +23,8 @@ O evento contém `pedidoId`, `emailCliente`, `regiao` e `estimativaMinutos`. Ass
 ## Teste e validação
 
 `ConfirmacaoAssincronaIT` simula uma falha no cliente de e-mail, verifica que o consumidor tentou enviar a notificação e confirma que a API respondeu com `CONFIRMADO` e que esse status continua consultável.
+
+Como o e-mail de confirmação passou a ser enviado em outra thread, a ordem dele em relação aos e-mails que continuam síncronos (por exemplo, o de pagamento) deixa de ser garantida. O `GeografiaContratoIT` compara a sequência de e-mails com um arquivo de referência que espera "Pedido confirmado" na primeira posição. O teste continua passando, porque o consumidor termina antes da requisição de pagamento seguinte, mas essa ordem agora depende de tempo de execução. O teste não foi alterado, conforme as restrições da atividade.
 
 ### Resultado de `mvn clean verify`
 
